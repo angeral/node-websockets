@@ -108,6 +108,22 @@ function guid() {
     return padLeft(n6(), 6);
 }
 
+function originIsAllowed(origin) {
+    // put logic here to detect whether the specified origin is allowed.
+    return true;
+}
+
+function getTime() {
+    var time = new Date();
+    time.setHours(time.getHours());
+    return time.getFullYear().toString() + '-'
+        + (((time.getMonth() + 1).toString().length < 2) ? "0" + (time.getMonth() + 1).toString() : (time.getMonth() + 1).toString()) + "-"
+        + (((time.getDate()).toString().length < 2) ? "0" + (time.getDate()).toString() : (time.getDate()).toString()) + " "
+        + (((time.getHours()).toString().length < 2) ? "0" + (time.getHours()).toString() : (time.getHours()).toString()) + ":"
+        + (((time.getMinutes()).toString().length < 2) ? "0" + (time.getMinutes()).toString() : (time.getMinutes()).toString()) + ":"
+        + (((time.getSeconds()).toString().length < 2) ? "0" + (time.getSeconds()).toString() : (time.getSeconds()).toString());
+}
+
 wss.on('connection', (ws) => {
   console.log('Client connected');
   ws.on('close', () => console.log('Client disconnected'));
