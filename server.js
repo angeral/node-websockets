@@ -1,14 +1,15 @@
 'use strict';
 
 const express = require('express');
+var https = require('https');
 const SocketServer = require('ws').Server;
 const path = require('path');
 
 const PORT = process.env.PORT || 3000;
-const INDEX = path.join(__dirname, 'index.html');
+//const INDEX = path.join(__dirname, 'index.html');
 
 const server = express()
- .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+    .listen(PORT, () => console.log(`Listening on ${PORT}`));
 //const server = express()
 //  .use((req, res) => res.sendFile(INDEX) )
 //  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
@@ -169,7 +170,7 @@ wss.on('connection', (ws) => {
                       connectList[this.uuid].attendcount = (msg.message.attendcount) ? msg.message.attendcount : "";
                       connectList[this.uuid].meetingtitle = (msg.message.meetingtitle) ? msg.message.meetingtitle : "";
 
-                      //PostCode(GetPostdata(this.uuid, 1), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);
+                      PostCode(GetPostdata(this.uuid, 1), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);
 
                       console.log('wss ' + 'user:', this.uuid, 'update info:', connectList[this.uuid].nickname, connectList[this.uuid].pinCode);
                       console.log('\n');
