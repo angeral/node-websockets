@@ -28,13 +28,13 @@ var uuidMax = 100;
 var CKTWebService = {
     key: "66b78883f3fb4f2db31dc42fb7031e2b",
     host: "service1.insyde.com",
-    setTargetStatus: "/CastKT/Service/CastKT.asmx/setTargetStatus",
-    setTargetStatusWithMeetingInfo: "/CastKT/Service/CastKT.asmx/setTargetStatusWithMeetingInfo",
+    setTargetStatus: "http://service1.insyde.com/CastKT/Service/CastKT.asmx/setTargetStatus",
+    setTargetStatusWithMeetingInfo: "http://service1.insyde.com/CastKT/Service/CastKT.asmx/setTargetStatusWithMeetingInfo",
 }
 var ToDWebService = {
     key: "d8878a53616f4550b5c131185f398721",
     host: "service1.insyde.com",
-    setTargetStatus: "/TodKanTan/Service/Tod.asmx/setTargetStatus",
+    setTargetStatus: "http://service1.insyde.com/TodKanTan/Service/Tod.asmx/setTargetStatus",
 }
 
 function PostCode(obj, host, path) {
