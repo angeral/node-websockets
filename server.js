@@ -128,20 +128,20 @@ wss.on('connection', (ws) => {
   console.log('Client connected');
   ws.on('close', () => console.log('Client disconnected'));
 
-  var uuid1 = null
-  while (!uuid1) {
+  var uuid = null
+  while (!uuid) {
       var tmp = guid();
       if (uuidList.indexOf(tmp) < 0) {
-          uuid1 = tmp;
+          uuid = tmp;
       }
   }
-  uuidList.push(uuid1);
+  uuidList.push(uuid);
 
   ws.on('message', function incoming(message) {
-      this.uuid = uuid1;
+      this.uuid = uuid;
       //connection = this;
-      //connection.uuid = uuid1;
-      connectList[uuid1] = {
+      //connection.uuid = uuid;
+      connectList[uuid] = {
           "connection": this,
           "deviceuuid": "",
           "nickname": "",
@@ -182,7 +182,7 @@ wss.on('connection', (ws) => {
                               connectList[msg.message.uuid] = connectList[this.uuid];
                               var index = uuidList.indexOf(uuid);
                               uuidList.splice(index, 1);
-                              delete connectList[uuid1];
+                              delete connectList[uuid];
                               this.uuid = msg.message.uuid;
                               uuidList.push(this.uuid);
                           }
