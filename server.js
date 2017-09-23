@@ -25,6 +25,75 @@ var pktadapterList = [];
 var pktmobileList = [];
 var uuidList = [];
 var uuidMax = 100;
+var CKTWebService = {
+    key: "66b78883f3fb4f2db31dc42fb7031e2b",
+    host: "service1.insyde.com",
+    setTargetStatus: "/CastKT/Service/CastKT.asmx/setTargetStatus",
+    setTargetStatusWithMeetingInfo: "/CastKT/Service/CastKT.asmx/setTargetStatusWithMeetingInfo",
+}
+var ToDWebService = {
+    key: "d8878a53616f4550b5c131185f398721",
+    host: "service1.insyde.com",
+    setTargetStatus: "/TodKanTan/Service/Tod.asmx/setTargetStatus",
+}
+
+function PostCode(obj, host, path) {
+    // Build the post string from an object
+    function jsonToQueryString(json) {
+        return Object.keys(json).map(function (key) {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(json[key]);
+        }).join('&');
+    }
+    var post_data = jsonToQueryString(obj)
+    //console.log("post:", post_data);
+
+    var post_options = {
+        host: host,
+        path: path,
+        port: '',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Length': Buffer.byteLength(post_data)
+        }
+    };
+
+    // Set up the request
+    var post_req = require("http").request(post_options, function (res) {
+        res.setEncoding('utf8');
+        res.on('data', function (chunk) {
+            //console.log('Response: ' + chunk);
+        });
+    });
+
+    // post the data
+    post_req.write(post_data);
+    post_req.end();
+}
+
+function GetPostdataForToD(id, TargetStatus) {
+    return {
+        Key: ToDWebService.key,
+        TargetUUID: connectList[id].deviceuuid,
+        TargetRoomId: connectList[id].roomid,
+        TargetStatus: TargetStatus,
+    };
+}
+
+function GetPostdata(id, TargetStatus) {
+    return {
+        Key: CKTWebService.key,
+        TargetUUID: connectList[id].deviceuuid,
+        TargetRoomId: connectList[id].roomid,
+        TargetName: connectList[id].nickname,
+        TargetStatus: TargetStatus,
+        PingCode: connectList[id].pinCode,
+        VersionNO: connectList[id].version,
+        MeetingTitle: connectList[id].meetingtitle,
+        MeetingPeriod: connectList[id].meetingperiod,
+        MeetingAttendCount: connectList[id].attendcount,
+    };
+}
 
 function guid() {
     function n6() {
@@ -306,3 +375,12 @@ wss.on('connection', (ws) => {
 //    client.send(new Date().toTimeString());
 //  });
 //}, 1000);
+
+var interval = setInterval(function () {
+    for (var i = 0; i < targetList.length; i++) {
+        PostCode(GetPostdata(targetList[i], 1), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);
+    }
+    //for (var i = 0; i < todtargetList.length; i++) {
+    //    PostCode(GetPostdataForToD(todtargetList[i], 1), ToDWebService.host, ToDWebService.setTargetStatus);
+    //}
+}, 60000);
