@@ -402,7 +402,7 @@ wss.on('connection', (ws) => {
           return;
       }
 
-      console.log('user:', this.uuid, connectList[this.uuid].nickname, getTime(), ' is disconnected.');
+      console.log('user this.uuid:', this.uuid, ',' , connectList[this.uuid], ', ', getTime(), ' is disconnected.');
       var index = uuidList.indexOf(this.uuid);
       uuidList.splice(index, 1);
       if (clientList.indexOf(this.uuid) >= 0)
