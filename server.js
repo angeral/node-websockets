@@ -81,6 +81,7 @@ function GetPostdataForToD(id, TargetStatus) {
 }
 
 function GetPostdata(id, TargetStatus) {
+    console.log('GetPostdata:', id, ', ', connectList[id].roomId, ', ', connectList[id].version);
     return {
         Key: CKTWebService.key,
         TargetUUID: connectList[id].deviceuuid,
@@ -93,7 +94,6 @@ function GetPostdata(id, TargetStatus) {
         MeetingPeriod: connectList[id].meetingperiod,
         MeetingAttendCount: connectList[id].attendcount,
     };
-    console.log('GetPostdata:', id, connectList[id]);
 }
 
 function guid() {
@@ -259,7 +259,7 @@ wss.on('connection', (ws) => {
                       connectList[this.uuid].meetingtitle = (msg.message.meetingtitle) ? msg.message.meetingtitle : "";
                       //console.log('connectList[this.uuid] updateinfo:', connectList[this.uuid].version, msg.message);
                       PostCode(GetPostdata(this.uuid, 1), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);
-                      console.log('connectList[this.uuid]:', this.uuid, connectList[this.uuid].version, msg.message);
+                      console.log('connectList[this.uuid]:', this.uuid, ', ', connectList[this.uuid].version, ',', msg.message);
                       console.log('wss ' + 'user:', this.uuid, 'update info:', connectList[this.uuid].nickname, connectList[this.uuid].pinCode);
                       console.log('\n');
                       // don't send target info throught websocket, Client will request target info by WebService
