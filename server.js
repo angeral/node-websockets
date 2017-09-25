@@ -154,6 +154,7 @@ wss.on('connection', (ws) => {
       try {
           var msg = JSON.parse(message);
           if (msg.command) {
+              console.log('msg:', msg);
               switch (msg.command) {
                   case 'registerdevice':
                       //console.log('Receive registerdevice');
