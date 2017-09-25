@@ -151,6 +151,7 @@ wss.on('connection', (ws) => {
           "meetingperiod": "",
           "attendcount": "",
       };
+      console.log('connectList:', connectList);
       try {
           var msg = JSON.parse(message);
           if (msg.command) {
