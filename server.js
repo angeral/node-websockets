@@ -261,7 +261,7 @@ wss.on('connection', (ws) => {
 
                       PostCode(GetPostdata(this.uuid, 1), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);
 
-                      console.log('user:', this.uuid, 'update info:', connectList[this.uuid].version, connectList[this.uuid].roomid);
+                      console.log('user:', this.uuid, 'update info:', connectList[this.uuid].version, ', ', connectList[this.uuid].roomid, ', ', connectList[msg.message.fromId].roomid);
                       console.log('\n');
                       // don't send target info throught websocket, Client will request target info by WebService
                       break;
