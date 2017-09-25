@@ -81,7 +81,7 @@ function GetPostdataForToD(id, TargetStatus) {
 }
 
 function GetPostdata(id, TargetStatus) {
-    console.log('GetPostdata:', id, ', ', connectList[id].roomId, ', ', connectList[id].version);
+    console.log('GetPostdata:', id, ', ', connectList[id].roomid, ', ', connectList[id].version);
     return {
         Key: CKTWebService.key,
         TargetUUID: connectList[id].deviceuuid,
