@@ -190,6 +190,7 @@ wss.on('connection', (ws) => {
 
                           connectList[this.uuid].deviceuuid = msg.message.deviceuuid;
                           connectList[this.uuid].roomid = this.uuid;
+                          console.log('connectList[this.uuid].roomid:', connectList[this.uuid].roomid);
                           if (msg.message.devicetype === 'target' && targetList.indexOf(this.uuid) < 0) targetList.push(this.uuid);
                           if (msg.message.devicetype === 'tod-target') {
                               if (todtargetList.indexOf(this.uuid) < 0) todtargetList.push(this.uuid);
