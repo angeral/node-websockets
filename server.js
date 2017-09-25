@@ -251,7 +251,7 @@ wss.on('connection', (ws) => {
 
                   case 'updateinfo':
                       // only for Target side, provide a way for Target to update Target's nickname/pinCode/version
-                      connectList[this.uuid].roomid = this.uuid;
+                      //connectList[this.uuid].roomid = this.uuid;
                       connectList[this.uuid].nickname = (msg.message.nickname) ? msg.message.nickname : "";
                       connectList[this.uuid].pinCode = (msg.message.pinCode) ? msg.message.pinCode : "";
                       connectList[this.uuid].version = (msg.message.version) ? msg.message.version : "";
@@ -260,7 +260,7 @@ wss.on('connection', (ws) => {
                       connectList[this.uuid].meetingtitle = (msg.message.meetingtitle) ? msg.message.meetingtitle : "";
                       //console.log('connectList[this.uuid] updateinfo:', connectList[this.uuid].version, msg.message);
                       PostCode(GetPostdata(this.uuid, 1), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);
-                      console.log('connectList[this.uuid]:', this.uuid, ', ', connectList[this.uuid].version, ',', msg.message);
+                      console.log('connectList[this.uuid]:', this.uuid, ', ', connectList[this.uuid].roomid, ', ', connectList[this.uuid].version, ',', msg.message);
                       console.log('wss ' + 'user:', this.uuid, 'update info:', connectList[this.uuid].nickname, connectList[this.uuid].pinCode);
                       console.log('\n');
                       // don't send target info throught websocket, Client will request target info by WebService
