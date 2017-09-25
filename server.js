@@ -1,7 +1,6 @@
 'use strict';
 
 const express = require('express');
-var https = require('https');
 const SocketServer = require('ws').Server;
 const path = require('path');
 
@@ -9,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 //const INDEX = path.join(__dirname, 'index.html');
 
 const server = express()
-    .listen(PORT, () => console.log(`Listening on ${PORT}`));
+	.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 //const server = express()
 //  .use((req, res) => res.sendFile(INDEX) )
 //  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
@@ -25,6 +24,7 @@ var pktadapterList = [];
 var pktmobileList = [];
 var uuidList = [];
 var uuidMax = 100;
+
 var CKTWebService = {
     key: "66b78883f3fb4f2db31dc42fb7031e2b",
     host: "service1.insyde.com",
