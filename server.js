@@ -256,7 +256,7 @@ wss.on('connection', (ws) => {
                       connectList[this.uuid].meetingperiod = (msg.message.meetingperiod) ? msg.message.meetingperiod : "";
                       connectList[this.uuid].attendcount = (msg.message.attendcount) ? msg.message.attendcount : "";
                       connectList[this.uuid].meetingtitle = (msg.message.meetingtitle) ? msg.message.meetingtitle : "";
-
+                      console.log('connectList[this.uuid] updateinfo:', connectList[this.uuid], msg.message);
                       PostCode(GetPostdata(this.uuid, 1), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);
                       console.log('updateinfo:', this.uuid);
                       console.log('wss ' + 'user:', this.uuid, 'update info:', connectList[this.uuid].nickname, connectList[this.uuid].pinCode);
