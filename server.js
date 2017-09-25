@@ -395,7 +395,7 @@ wss.on('connection', (ws) => {
 
 var interval = setInterval(function () {
     for (var i = 0; i < targetList.length; i++) {
-        PostCode(GetPostdata(targetList[i], 1), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);\
+        PostCode(GetPostdata(targetList[i], 1), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);
         console.log('targetList[i]:', targetList[i]);
     }
     //for (var i = 0; i < todtargetList.length; i++) {
