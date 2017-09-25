@@ -139,7 +139,7 @@ wss.on('connection', (ws) => {
 
   ws.on('message', function incoming(message) {
       var msg = JSON.parse(message);
-      this.uuid = uuid;
+      this.uuid = (msg.message.uuid) ? msg.message.uuid : uuid;
       //connection = this;
       //connection.uuid = uuid;
       connectList[uuid] = {
