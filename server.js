@@ -260,7 +260,7 @@ wss.on('connection', (ws) => {
 
                       PostCode(GetPostdata(this.uuid, 1), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);
 
-                      console.log('user:', this.uuid, 'update info:', connectList[this.uuid].nickname, connectList[this.uuid].pinCode);
+                      console.log('user:', this.uuid, 'update info:', connectList[this.uuid].version, connectList[this.uuid].roomid);
                       console.log('\n');
                       // don't send target info throught websocket, Client will request target info by WebService
                       break;
@@ -403,7 +403,7 @@ wss.on('connection', (ws) => {
       }
 
       console.log('user close this.uuid:', this.uuid, ',', getTime(), ' is disconnected.');
-      console.log('user close this.uuid:', connectList[this.uuid]);
+      //console.log('user close this.uuid:', connectList[this.uuid]);
       var index = uuidList.indexOf(this.uuid);
       uuidList.splice(index, 1);
       if (clientList.indexOf(this.uuid) >= 0)
