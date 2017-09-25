@@ -138,7 +138,8 @@ wss.on('connection', (ws) => {
   uuidList.push(uuid);
 
   ws.on('message', function incoming(message) {
-      //this.uuid = uuid;
+      var msg = JSON.parse(message);
+      this.uuid = uuid;
       //connection = this;
       //connection.uuid = uuid;
       connectList[uuid] = {
@@ -153,7 +154,7 @@ wss.on('connection', (ws) => {
       };
       //console.log('connectList[962281]:', connectList[962281]);
       try {
-          var msg = JSON.parse(message);
+          //var msg = JSON.parse(message);
           if (msg.command) {
               console.log('msg:', msg);
               switch (msg.command) {
