@@ -397,11 +397,11 @@ wss.on('connection', (ws) => {
       var msg = 'user: ' + uuid + ', ' + getTime() + ' is disconnected.';
 
       if (this.overwrite) {
-          console.log(wsType + this.uuid, " is overwrite, skip onclose event once.");
+          console.log(this.uuid, " is overwrite, skip onclose event once.");
           return;
       }
 
-      console.log(wsType + 'user:', this.uuid, connectList[this.uuid].nickname, getTime(), ' is disconnected.');
+      console.log('user:', this.uuid, connectList[this.uuid].nickname, getTime(), ' is disconnected.');
       var index = uuidList.indexOf(this.uuid);
       uuidList.splice(index, 1);
       if (clientList.indexOf(this.uuid) >= 0)
@@ -441,7 +441,7 @@ wss.on('connection', (ws) => {
               }
           }));
       }
-      console.log(wsType);
+
       console.log("  ## total uuid number:", uuidList.length);
       console.log("    -> current uuid list: ", uuidList);
       console.log("  ## total target number:", targetList.length);
