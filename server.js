@@ -127,7 +127,6 @@ function getTime() {
 
 wss.on('connection', (ws) => {
   console.log('Client connected');
-  ws.on('close', () => console.log('Client disconnected'));
 
   var uuid = null
   while (!uuid) {
@@ -391,6 +390,76 @@ wss.on('connection', (ws) => {
       }
 
   });
+
+  //ws.on('close', () => console.log('Client disconnected'));
+  ws.on('close', function (connection) {
+      var msg = 'user: ' + uuid + ', ' + getTime() + ' is disconnected.';
+
+      if (this.overwrite) {
+          console.log(wsType + this.uuid, " is overwrite, skip onclose event once.");
+          return;
+      }
+
+      console.log(wsType + 'user:', this.uuid, connectList[this.uuid].nickname, getTime(), ' is disconnected.');
+      var index = uuidList.indexOf(this.uuid);
+      uuidList.splice(index, 1);
+      if (clientList.indexOf(this.uuid) >= 0)
+          clientList.splice(clientList.indexOf(this.uuid), 1);
+      else if (targetList.indexOf(this.uuid) >= 0) {
+          PostCode(GetPostdata(this.uuid, 2), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);
+          targetList.splice(targetList.indexOf(this.uuid), 1);
+      } else if (todtargetList.indexOf(this.uuid) >= 0) {
+          PostCode(GetPostdataForToD(this.uuid, 2), ToDWebService.host, ToDWebService.setTargetStatus);
+          todtargetList.splice(todtargetList.indexOf(this.uuid), 1);
+      } else if (todclientList.indexOf(this.uuid) >= 0)
+          todclientList.splice(todclientList.indexOf(this.uuid), 1);
+      else if (pktadapterList.indexOf(this.uuid) >= 0)
+          pktadapterList.splice(pktadapterList.indexOf(this.uuid), 1);
+      else if (pktmobileList.indexOf(this.uuid) >= 0)
+          pktmobileList.splice(pktmobileList.indexOf(this.uuid), 1);
+
+      delete connectList[this.uuid];
+
+      for (var i = 0; i < connectList.length; i++) {
+          connectList[i].connection.send(JSON.stringify({
+              user: 'Server',
+              date: getTime(),
+              message: msg
+          }));
+      }
+      var roomremove = [];
+      roomremove.push(this.uuid);
+      for (var i = 0; i < clientList.length; i++) {
+          connectList[clientList[i]].connection.send(JSON.stringify({
+              sender: 'Server',
+              date: getTime(),
+              command: 'targetroominfo',
+              message: {
+                  roominfo: [],
+                  roomremove: roomremove,
+              }
+          }));
+      }
+      console.log(wsType);
+      console.log("  ## total uuid number:", uuidList.length);
+      console.log("    -> current uuid list: ", uuidList);
+      console.log("  ## total target number:", targetList.length);
+      console.log("    -> current target list: ", targetList);
+      console.log("  ## total client number:", clientList.length);
+      console.log("    -> current client list: ", clientList);
+      console.log("  ## total ToD-target number:", todtargetList.length);
+      console.log("    -> current ToD-target list: ", todtargetList);
+      console.log("  ## total ToD-client number:", todclientList.length);
+      console.log("    -> current ToD-client list: ", todclientList);
+      console.log("  ## total PassKanTan mobile number:", pktmobileList.length);
+      console.log("    -> current PassKanTan mobile list: ", pktmobileList);
+      console.log("  ## total PassKanTan adapter number:", pktadapterList.length);
+      console.log("    -> current PassKanTan adapter list: ", pktadapterList);
+      console.log('\n');
+
+
+  });
+
 });
 
 //setInterval(() => {
