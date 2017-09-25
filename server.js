@@ -93,6 +93,7 @@ function GetPostdata(id, TargetStatus) {
         MeetingPeriod: connectList[id].meetingperiod,
         MeetingAttendCount: connectList[id].attendcount,
     };
+    console.log('GetPostdata:', id, connectList[id]);
 }
 
 function guid() {
@@ -151,7 +152,7 @@ wss.on('connection', (ws) => {
           "meetingperiod": "",
           "attendcount": "",
       };
-      console.log('connectList:', connectList);
+      console.log('connectList[962281]:', connectList[962281]);
       try {
           var msg = JSON.parse(message);
           if (msg.command) {
@@ -397,7 +398,7 @@ wss.on('connection', (ws) => {
 var interval = setInterval(function () {
     for (var i = 0; i < targetList.length; i++) {
         PostCode(GetPostdata(targetList[i], 1), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);
-        console.log('targetList[i]:', targetList[i]);
+        //console.log('targetList[i]:', targetList[i]);
     }
     //for (var i = 0; i < todtargetList.length; i++) {
     //    PostCode(GetPostdataForToD(todtargetList[i], 1), ToDWebService.host, ToDWebService.setTargetStatus);
