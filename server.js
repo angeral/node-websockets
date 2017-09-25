@@ -196,7 +196,7 @@ wss.on('connection', (ws) => {
                               PostCode(GetPostdataForToD(this.uuid, 1), ToDWebService.host, ToDWebService.setTargetStatus);
                           }
 
-                          //PostCode(GetPostdata(this.uuid, 1), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);
+                          PostCode(GetPostdata(this.uuid, 1), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);
                           connectList[this.uuid].connection.send(JSON.stringify({
                               sender: 'Server',
                               date: getTime(),
@@ -257,7 +257,7 @@ wss.on('connection', (ws) => {
                       connectList[this.uuid].meetingtitle = (msg.message.meetingtitle) ? msg.message.meetingtitle : "";
 
                       PostCode(GetPostdata(this.uuid, 1), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);
-
+                      console.log('updateinfo:', this.uuid);
                       console.log('wss ' + 'user:', this.uuid, 'update info:', connectList[this.uuid].nickname, connectList[this.uuid].pinCode);
                       console.log('\n');
                       // don't send target info throught websocket, Client will request target info by WebService
@@ -395,7 +395,8 @@ wss.on('connection', (ws) => {
 
 var interval = setInterval(function () {
     for (var i = 0; i < targetList.length; i++) {
-        PostCode(GetPostdata(targetList[i], 1), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);
+        PostCode(GetPostdata(targetList[i], 1), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);\
+        console.log('targetList[i]:', targetList[i]);
     }
     //for (var i = 0; i < todtargetList.length; i++) {
     //    PostCode(GetPostdataForToD(todtargetList[i], 1), ToDWebService.host, ToDWebService.setTargetStatus);
