@@ -152,7 +152,7 @@ wss.on('connection', (ws) => {
           "meetingperiod": "",
           "attendcount": "",
       };
-      console.log('connectList[962281]:', connectList[962281]);
+      //console.log('connectList[962281]:', connectList[962281]);
       try {
           var msg = JSON.parse(message);
           if (msg.command) {
@@ -198,7 +198,7 @@ wss.on('connection', (ws) => {
                               PostCode(GetPostdataForToD(this.uuid, 1), ToDWebService.host, ToDWebService.setTargetStatus);
                           }
 
-                          PostCode(GetPostdata(this.uuid, 1), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);
+                          //PostCode(GetPostdata(this.uuid, 1), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);
                           connectList[this.uuid].connection.send(JSON.stringify({
                               sender: 'Server',
                               date: getTime(),
@@ -257,9 +257,9 @@ wss.on('connection', (ws) => {
                       connectList[this.uuid].meetingperiod = (msg.message.meetingperiod) ? msg.message.meetingperiod : "";
                       connectList[this.uuid].attendcount = (msg.message.attendcount) ? msg.message.attendcount : "";
                       connectList[this.uuid].meetingtitle = (msg.message.meetingtitle) ? msg.message.meetingtitle : "";
-                      console.log('connectList[this.uuid] updateinfo:', connectList[this.uuid], msg.message);
+                      console.log('connectList[this.uuid] updateinfo:', connectList[this.uuid].version, msg.message);
                       PostCode(GetPostdata(this.uuid, 1), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);
-                      console.log('updateinfo:', this.uuid);
+                      console.log('connectList[this.uuid]:', this.uuid, connectList[this.uuid]);
                       console.log('wss ' + 'user:', this.uuid, 'update info:', connectList[this.uuid].nickname, connectList[this.uuid].pinCode);
                       console.log('\n');
                       // don't send target info throught websocket, Client will request target info by WebService
