@@ -81,7 +81,7 @@ function GetPostdataForToD(id, TargetStatus) {
 }
 
 function GetPostdata(id, TargetStatus) {
-    console.log('GetPostdata:', id, ', ', connectList[id].roomid, ', ', connectList[id].version);
+    console.log('GetPostdata:', id, ', ', connectList[id].version, ', ', connectList[id]);
     return {
         Key: CKTWebService.key,
         TargetUUID: connectList[id].deviceuuid,
@@ -251,6 +251,7 @@ wss.on('connection', (ws) => {
 
                   case 'updateinfo':
                       // only for Target side, provide a way for Target to update Target's nickname/pinCode/version
+                      connectList[this.uuid].roomid = this.uuid;
                       connectList[this.uuid].nickname = (msg.message.nickname) ? msg.message.nickname : "";
                       connectList[this.uuid].pinCode = (msg.message.pinCode) ? msg.message.pinCode : "";
                       connectList[this.uuid].version = (msg.message.version) ? msg.message.version : "";
