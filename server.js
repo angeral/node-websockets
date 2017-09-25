@@ -161,14 +161,14 @@ wss.on('connection', (ws) => {
                   case 'registerdevice':
                       if (msg.message.devicetype === 'target' || msg.message.devicetype === 'tod-target') {
                           if (!msg.message.uuid) {
-                              console.log(wsType + " 1user " + msg.message.devicetype + ":", this.uuid, "registerdevice type 1: no uuid info, use default uuid:", msg.message.uuid);
+                              console.log(" 1user " + msg.message.devicetype + ":", this.uuid, "registerdevice type 1: no uuid info, use default uuid:", msg.message.uuid);
                           } else if (msg.message.uuid === this.uuid) {
-                              console.log(wsType + " 2user " + msg.message.devicetype + ":", this.uuid, "registerdevice type 2: uuid info is equal to default uuid:", msg.message.uuid);
+                              console.log(" 2user " + msg.message.devicetype + ":", this.uuid, "registerdevice type 2: uuid info is equal to default uuid:", msg.message.uuid);
                           } else if (uuidList.indexOf(msg.message.uuid) >= 0 && connectList[msg.message.uuid].deviceuuid.length == 0) {
-                              console.log(wsType + " 3user " + msg.message.devicetype + ":", this.uuid, "registerdevice type 3: uuid info is duplicateed, skip create new uuie:", msg.message.uuid);
+                              console.log(" 3user " + msg.message.devicetype + ":", this.uuid, "registerdevice type 3: uuid info is duplicateed, skip create new uuie:", msg.message.uuid);
                           } else if (uuidList.indexOf(msg.message.uuid) >= 0 && connectList[msg.message.uuid].deviceuuid.length >= 0) {
-                              console.log(wsType + " 4user " + msg.message.devicetype + ":", this.uuid, "registerdevice type 4: device is reconnect and deviceuuid is the same, use old setting:", msg.message.uuid, msg.message.deviceuuid);
-                              console.log(wsType + " 5uuid:", this.uuid, "change to", msg.message.uuid);
+                              console.log(" 4user " + msg.message.devicetype + ":", this.uuid, "registerdevice type 4: device is reconnect and deviceuuid is the same, use old setting:", msg.message.uuid, msg.message.deviceuuid);
+                              console.log(" 5uuid:", this.uuid, "change to", msg.message.uuid);
                               connectList[msg.message.uuid].connection.overwrite = true;
                               connectList[msg.message.uuid].connection = connectList[this.uuid].connection;
                               var index = uuidList.indexOf(this.uuid);
@@ -179,8 +179,8 @@ wss.on('connection', (ws) => {
                               this.uuid = msg.message.uuid; //-> this.uuid is equal to connectList[msg.message.uuid].connection.uuid
 
                           } else {
-                              console.log(wsType + " 6user " + msg.message.devicetype + ":", uuid, "registerdevice type 5: uuid info is not duplicateed, use self's own uuid:", msg.message.uuid);
-                              console.log(wsType + " 7uuid:", this.uuid, "change to", msg.message.uuid);
+                              console.log(" 6user " + msg.message.devicetype + ":", uuid, "registerdevice type 5: uuid info is not duplicateed, use self's own uuid:", msg.message.uuid);
+                              console.log(" 7uuid:", this.uuid, "change to", msg.message.uuid);
                               connectList[msg.message.uuid] = connectList[this.uuid];
                               var index = uuidList.indexOf(uuid);
                               uuidList.splice(index, 1);
@@ -225,11 +225,11 @@ wss.on('connection', (ws) => {
                               }
                           }));
                       } else {
-                          console.log(wsType + 'registerdevice error: ' + msg.message);
+                          console.log('registerdevice error: ' + msg.message);
                           break;
                       }
 
-                      console.log(wsType + ' 8user', msg.message.devicetype, ': ' + this.uuid + ', ' + getTime() + ' is registered.');
+                      console.log(' 8user', msg.message.devicetype, ': ' + this.uuid + ', ' + getTime() + ' is registered.');
                       console.log("user's deviceuuid:", connectList[this.uuid].deviceuuid);
                       console.log("  ## total uuid number:", uuidList.length);
                       console.log("    -> current uuid list: ", uuidList);
@@ -259,7 +259,7 @@ wss.on('connection', (ws) => {
 
                       PostCode(GetPostdata(this.uuid, 1), CKTWebService.host, CKTWebService.setTargetStatusWithMeetingInfo);
 
-                      console.log(wsType + 'user:', this.uuid, 'update info:', connectList[this.uuid].nickname, connectList[this.uuid].pinCode);
+                      console.log('user:', this.uuid, 'update info:', connectList[this.uuid].nickname, connectList[this.uuid].pinCode);
                       console.log('\n');
                       // don't send target info throught websocket, Client will request target info by WebService
                       break;
@@ -382,7 +382,7 @@ wss.on('connection', (ws) => {
                       break;
 
                   default:
-                      console.log(wsType + this.uuid, ' 9send command: ', msg.command, ' is not match!');
+                      console.log(this.uuid, ' 9send command: ', msg.command, ' is not match!');
                       console.log("msg", msg);
               }
           }
