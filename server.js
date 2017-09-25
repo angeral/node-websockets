@@ -251,7 +251,7 @@ wss.on('connection', (ws) => {
 
                   case 'updateinfo':
                       // only for Target side, provide a way for Target to update Target's nickname/pinCode/version
-                      //connectList[this.uuid].roomid = this.uuid;
+                      connectList[this.uuid].roomid = (msg.message.fromId) ? msg.message.fromId : "";
                       connectList[this.uuid].nickname = (msg.message.nickname) ? msg.message.nickname : "";
                       connectList[this.uuid].pinCode = (msg.message.pinCode) ? msg.message.pinCode : "";
                       connectList[this.uuid].version = (msg.message.version) ? msg.message.version : "";
